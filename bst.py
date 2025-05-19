@@ -11,6 +11,14 @@ class BSNode:
     left: BinTree
     right: BinTree
 
+@dataclass(frozen=True)
+class BinarySearchTree:
+    comes_before: Callable[[], ]
+    other: BinTree
+comes_before(self, a: BinTree):
+        if self.val < a.val:
+            return True
+
 
 def example_fun(x : int) -> bool:
     return x < 142
