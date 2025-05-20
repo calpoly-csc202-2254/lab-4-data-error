@@ -13,11 +13,31 @@ class BSNode:
 
 @dataclass(frozen=True)
 class BinarySearchTree:
-    comes_before: Callable[[], ]
+    comes_before: Callable[[Any, Any],bool]
     other: BinTree
-comes_before(self, a: BinTree):
-        if self.val < a.val:
+    def is_empty(self)-> bool:
+        if self.other is None:
             return True
+        else:
+            return False
+
+    def insert(self, t : 'BinarySearchTree', val: Any)-> 'BinarySearchTree':
+        def insert_helper(t: BinTree, val: Any):
+            match t:
+                case None:
+                    return BSNode(val, None, None)
+                case BSNode(v, l, r):
+                    if self.comes_before(t.val,v):
+                        return BSNode(t.val, insert_helper(l, val), r)
+                    else :
+                        return BSNode(v, l, insert_helper(r, val))
+# Not done
+
+
+
+
+
+
 
 
 def example_fun(x : int) -> bool:
