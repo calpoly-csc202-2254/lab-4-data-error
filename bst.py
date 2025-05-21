@@ -48,7 +48,7 @@ class BinarySearchTree:
                         return lookup_helper(r)
         return lookup_helper(t.other)
 
-    def delete(self, t1:'BinarySearchTree', val1: Any) -> BinTree:
+    def delete(self, t:'BinarySearchTree', val1: Any) -> BinTree:
         def val_check(val, com_val):
             return self.comes_before(val, com_val) is False and self.comes_before(com_val, val) is False
 
@@ -80,14 +80,13 @@ class BinarySearchTree:
                         return BSNode(v, delete_helper(l), None)
                 case BSNode(v, l, r):
                     if val_check(v, val1):
-                        most_min = left_min(r)
-                        return BSNode(most_min, l, delete_helper(r))
-                    elif t1.comes_before(val1, v):
+                        return BSNode(left_min(r), l, delete_helper(r))
+                    elif self.comes_before(val1, v):
                         return BSNode(v, delete_helper(l), r)
                     else:
                         return BSNode(v,l,delete_helper(r))
 
-        return delete_helper(t1.other)
+        return delete_helper(t.other)
 
 
 
