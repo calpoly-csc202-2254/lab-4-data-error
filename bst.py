@@ -22,17 +22,18 @@ class BinarySearchTree:
             return False
 
     def insert(self, t : 'BinarySearchTree', val: Any)-> 'BinarySearchTree':
-        def insert_helper(t: BinTree, val: Any):
+        def insert_helper(t: BinTree, val: Any)->BinTree:
             match t:
                 case None:
                     return BSNode(val, None, None)
                 case BSNode(v, l, r):
-                    if self.comes_before(t.val,v):
-                        return BSNode(t.val, insert_helper(l, val), r)
-                    else :
+                    if self.comes_before(val,v):
+                        return BSNode(v, insert_helper(l, val), r)
+                    else:
                         return BSNode(v, l, insert_helper(r, val))
+        tree = insert_helper(t.other,val)
+        return BinarySearchTree(self.comes_before, tree)
 
-    # Not done
 
     def lookup(self, t: 'BinarySearchTree', val: Any) -> bool:
         def lookup_helper(t: BinTree):
