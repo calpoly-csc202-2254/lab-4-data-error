@@ -49,9 +49,11 @@ class BSTTests(unittest.TestCase):
         pass
 
     def test_look_up_helper(self):
-        pass
+        self.assertEqual(False, lookup_helper(bt1, 2, comes_before_num))
+        self.assertEqual(True, lookup_helper(bt2, "E", comes_before_abc))
 
-    def test_example_fun(self):
+
+def test_example_fun(self):
         self.assertEqual(True, example_fun(34))
         self.assertEqual(False, example_fun(1423))
 

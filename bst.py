@@ -82,7 +82,7 @@ def insert_helper(t: BinTree, val: Any, comes_before: Callable[[Any, Any], bool]
                 return BSNode(v, l, insert_helper(r, val, comes_before))
 
 
-def lookup_helper(t: BinTree, val: Any, comes_before: Callable[[Any, Any], bool]):
+def lookup_helper(t: BinTree, val: Any, comes_before: Callable[[Any, Any], bool])-> bool:
     match t:
         case None:
             return False
