@@ -33,7 +33,37 @@ def comes_before_euclidean(a: Point, b: Point):
 
 bt1 = BSNode(8, BSNode(3, None, None), BSNode(10, None, None))
 bt2 = BSNode("E", BSNode("D", None, None), BSNode("G", None, None))
-
+bt3 = BSNode(6,
+             BSNode(5, None, None),
+             BSNode(10,
+                    BSNode(7,
+                           None,
+                           BSNode(9,
+                                  BSNode(8,None, None),
+                                  None)),
+                    BSNode(11, None, None)))
+bt4 = BSNode(6,
+             None,
+             BSNode(10,
+                    BSNode(7,
+                           None,
+                           BSNode(9,
+                                  BSNode(8,None, None),
+                                  None)),
+                    BSNode(11, None, None)))
+bt5 = BSNode(6,
+             BSNode(5,
+                    BSNode(4,
+                           BSNode(3, None,None),
+                           None),
+                    None),
+             BSNode(10,
+                    BSNode(7,
+                           None,
+                           BSNode(9,
+                                  BSNode(8,None, None),
+                                  None)),
+                    BSNode(11, None, None)))
 bst1 = BinarySearchTree(comes_before_num, bt1)
 bst2 = BinarySearchTree(comes_before_abc, bt2)
 bst3 = BinarySearchTree(comes_before_num, None)
@@ -57,7 +87,58 @@ class BSTTests(unittest.TestCase):
     def test_look_up_helper(self):
         self.assertEqual(False, lookup_helper(bt1, 2, comes_before_num))
         self.assertEqual(True, lookup_helper(bt2, "E", comes_before_abc))
+
       #   needs euclidean test case
+
+    def test_value_check(self):
+        self.assertEqual(True, val_check(2,2, comes_before_num))
+        self.assertEqual(True, val_check("e", "e", comes_before_abc))
+        self.assertEqual(False, val_check(3, 6, comes_before_num))
+        self.assertEqual(True, val_check(Point(4,4), Point(4,4), comes_before_euclidean))
+        self.assertEqual(False, val_check("hello", "hi", comes_before_abc))
+
+    def test_left_min(self):
+        self.assertEqual(5, left_min(bt3))
+        self.assertEqual(6,left_min(bt4))
+        self.assertEqual(3, left_min(bt5))
+
+    def test_delete_helper(self):
+        self.assertEqual(BSNode(6,
+                                BSNode(5, None, None),
+                                BSNode(10,
+                                        BSNode(9,
+                                                BSNode(8,None, None),
+                                                None),
+                                        BSNode(11, None, None))), delete_helper(bt3, 7, comes_before_num))
+        self.assertEqual(BSNode(6,
+                                BSNode(5, None, None),
+                                BSNode(11,
+                                       BSNode(7,
+                                       None,
+                                       BSNode(9,
+                                              BSNode(8,None, None),
+                                              None)),
+                                       None)), delete_helper(bt3,10,comes_before_num))
+
+        self.assertEqual(BSNode(6,
+                                BSNode(5,
+                                       BSNode(3,None,None),
+                                       None),
+                                BSNode(10,
+                                       BSNode(7,
+                                              None,
+                                              BSNode(9,
+                                                     BSNode(8,None, None),
+                                                     None)),
+                                       BSNode(11, None, None))), delete_helper(bt5, 4, comes_before_num))
+
+        self.assertEqual(BSNode(7,
+                                BSNode(5, None, None),
+                                BSNode(10,
+                                       BSNode(9,
+                                              BSNode(8,None, None),
+                                              None),
+                                       BSNode(11,None, None))), delete_helper(bt3, 6, comes_before_num))
 
 def test_example_fun(self):
     self.assertEqual(True, example_fun(34))
