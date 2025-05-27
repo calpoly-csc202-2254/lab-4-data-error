@@ -51,19 +51,19 @@ bt4 = BSNode(6,
                                   BSNode(8,None, None),
                                   None)),
                     BSNode(11, None, None)))
-bt5 = BSNode(6,
-             BSNode(5,
-                    BSNode(4,
-                           BSNode(3, None,None),
+bt5 = BSNode("d",
+             BSNode("c",
+                    BSNode("b",
+                           BSNode("a", None,None),
                            None),
                     None),
-             BSNode(10,
-                    BSNode(7,
+             BSNode("k",
+                    BSNode("j",
                            None,
-                           BSNode(9,
-                                  BSNode(8,None, None),
+                           BSNode("h",
+                                  BSNode("g",None, None),
                                   None)),
-                    BSNode(11, None, None)))
+                    BSNode("z", None, None)))
 bt6 = BSNode(Point(3,3), BSNode(Point(2,4), None, None), BSNode(Point(5,6), None, None))
 bt7 = BSNode(Point(10,8), BSNode(Point(3,4), BSNode(Point(2,2),None, None) ,None), BSNode(Point(22,5), None, None))
 
@@ -71,6 +71,8 @@ bst1 = BinarySearchTree(comes_before_num, bt1)
 bst2 = BinarySearchTree(comes_before_abc, bt2)
 bst3 = BinarySearchTree(comes_before_num, None)
 bst4 = BinarySearchTree(comes_before_euclidean, bt7)
+bst5 = BinarySearchTree(comes_before_num,bt3)
+bst6 = BinarySearchTree(comes_before_abc,bt5)
 
 
 class BSTTests(unittest.TestCase):
@@ -105,6 +107,14 @@ class BSTTests(unittest.TestCase):
         self.assertEqual(True, lookup_helper(bt6, Point(5,6), comes_before_euclidean))
         self.assertEqual(False, lookup_helper(bt6, Point(0,6), comes_before_euclidean))
 
+    def test_lookup(self):
+        self.assertEqual(True, bst1.lookup(10))
+        self.assertEqual(False, bst1.lookup(5))
+        self.assertEqual(True, bst2.lookup("E"))
+        self.assertEqual(False, bst2.lookup("z"))
+        self.assertEqual(True, bst4.lookup(Point(3,4)))
+        self.assertEqual(False, bst4.lookup(Point(9,3)))
+
     def test_value_check(self):
         self.assertEqual(True, val_check(2,2, comes_before_num))
         self.assertEqual(True, val_check("e", "e", comes_before_abc))
@@ -134,26 +144,45 @@ class BSTTests(unittest.TestCase):
                                               BSNode(8,None, None),
                                               None)),
                                        None)), delete_helper(bt3,10,comes_before_num))
-
-        self.assertEqual(BSNode(6,
-                                BSNode(5,
-                                       BSNode(3,None,None),
-                                       None),
-                                BSNode(10,
-                                       BSNode(7,
+        self.assertEqual(BSNode(Point(10,8),
+                                BSNode(Point(2,2),None, None),
+                                BSNode(Point(22,5), None, None)), delete_helper(bt7, Point(3,4), comes_before_euclidean))
+        self.assertEqual( BSNode("d",
+                                 BSNode("c",
+                                        BSNode("a", None,None),
+                                 None),
+                                BSNode("k",
+                                       BSNode("j",
                                               None,
-                                              BSNode(9,
-                                                     BSNode(8,None, None),
-                                                     None)),
-                                       BSNode(11, None, None))), delete_helper(bt5, 4, comes_before_num))
+                                              BSNode("h",
+                                                     BSNode("g",None, None),
+                                       None)),
+                                BSNode("z", None, None))), delete_helper(bt5, "b", comes_before_abc))
 
-        self.assertEqual(BSNode(7,
+    def test_delete(self):
+        self.assertEqual(BSNode(6,
                                 BSNode(5, None, None),
                                 BSNode(10,
-                                       BSNode(9,
-                                              BSNode(8,None, None),
-                                              None),
-                                       BSNode(11,None, None))), delete_helper(bt3, 6, comes_before_num))
+                                        BSNode(9,
+                                                BSNode(8,None, None),
+                                                None),
+                                        BSNode(11, None, None))), bst5.delete(7))
+        self.assertEqual(BSNode("d",
+                                 BSNode("c",
+                                        BSNode("a", None,None),
+                                 None),
+                                BSNode("k",
+                                       BSNode("j",
+                                              None,
+                                              BSNode("h",
+                                                     BSNode("g",None, None),
+                                       None)),
+                                BSNode("z", None, None))), bst6.delete("b"))
+        self.assertEqual(BSNode(Point(10,8),
+                                BSNode(Point(2,2),None, None),
+                                BSNode(Point(22,5), None, None)), bst4.delete(Point(3,4)))
+
+
 
 def test_example_fun(self):
     self.assertEqual(True, example_fun(34))
