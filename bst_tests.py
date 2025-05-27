@@ -3,8 +3,9 @@ import unittest
 from typing import *
 from dataclasses import dataclass
 import math
-
+import random
 import bst
+import time
 
 sys.setrecursionlimit(10 ** 6)
 
@@ -73,6 +74,17 @@ bst3 = BinarySearchTree(comes_before_num, None)
 bst4 = BinarySearchTree(comes_before_euclidean, bt7)
 bst5 = BinarySearchTree(comes_before_num,bt3)
 bst6 = BinarySearchTree(comes_before_abc,bt5)
+
+bst7 = BinarySearchTree(comes_before_num, None)
+time1 = []
+start = time.perf_counter()
+for i in range(0,1000000):
+    rnd = random.random()
+    bst7 = bst7.insert(rnd)
+end = time.perf_counter()
+time1.append(end - start)
+print(time1)
+
 
 
 class BSTTests(unittest.TestCase):
