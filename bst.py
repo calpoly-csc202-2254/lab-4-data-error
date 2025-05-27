@@ -1,7 +1,10 @@
+import random
 import sys
 import unittest
 from typing import *
 from dataclasses import dataclass
+import random
+
 
 sys.setrecursionlimit(10 ** 6)
 
@@ -94,6 +97,12 @@ def delete_helper(t: BinTree, val1:Any, comes_before: Callable[[Any, Any], bool]
                 return BSNode(v, delete_helper(l, val1, comes_before), r)
             else:
                 return BSNode(v, l, delete_helper(r, val1, comes_before))
+
+
+for i in range(0,2):
+    rnd = random.random()
+    BinarySearchTree.insert(BinarySearchTree,rnd)
+    print(rnd)
 
 def example_fun(x: int) -> bool:
     return x < 142
