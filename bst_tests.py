@@ -64,9 +64,13 @@ bt5 = BSNode(6,
                                   BSNode(8,None, None),
                                   None)),
                     BSNode(11, None, None)))
+bt6 = BSNode(Point(3,3), BSNode(Point(2,4), None, None), BSNode(Point(5,6), None, None))
+bt7 = BSNode(Point(10,8), BSNode(Point(3,4), BSNode(Point(2,2),None, None) ,None), BSNode(Point(22,5), None, None))
+
 bst1 = BinarySearchTree(comes_before_num, bt1)
 bst2 = BinarySearchTree(comes_before_abc, bt2)
 bst3 = BinarySearchTree(comes_before_num, None)
+bst4 = BinarySearchTree(comes_before_euclidean, bt7)
 
 
 class BSTTests(unittest.TestCase):
@@ -77,18 +81,29 @@ class BSTTests(unittest.TestCase):
     def test_insert_helper(self):
         expected = BSNode(8, BSNode(3, BSNode(2, None, None), None), BSNode(10, None, None))
         expected2 = BSNode("E", BSNode("D", BSNode("A", None, None), None), BSNode("G", None, None))
+        expected3 = BSNode(Point(3,3), BSNode(Point(2,4), BSNode(Point(1,1),None, None), None), BSNode(Point(5,6), None, None))
         self.assertEqual(expected, insert_helper(bt1, 2, comes_before_num))
         self.assertEqual(expected2, insert_helper(bt2, "A", comes_before_abc))
-        # needs euclidean test case
+        self.assertEqual(expected3, insert_helper(bt6, Point(1,1), comes_before_euclidean))
+
 
     def test_insert(self):
-        pass
+        change1= BSNode(Point(10,8), BSNode(Point(3,4), BSNode(Point(2,2), None, None) ,None), BSNode(Point(22,5), BSNode(Point(15,9),None, None),None))
+        change2 = BSNode(8, BSNode(3, BSNode(0,None,None), None), BSNode(10, None, None))
+        change3 = BSNode("E", BSNode("D",BSNode("C", None, None), None,), BSNode("G", None, None))
+        expected = BinarySearchTree(comes_before_euclidean, change1)
+        expected2 = BinarySearchTree(comes_before_num, change2)
+        expected3 = BinarySearchTree(comes_before_abc, change3)
+        self.assertEqual(expected,bst4.insert(Point(15,9)))
+        self.assertEqual(expected2,bst1.insert(0))
+        self.assertEqual(expected3,bst2.insert("C"))
+
 
     def test_look_up_helper(self):
         self.assertEqual(False, lookup_helper(bt1, 2, comes_before_num))
         self.assertEqual(True, lookup_helper(bt2, "E", comes_before_abc))
-
-      #   needs euclidean test case
+        self.assertEqual(True, lookup_helper(bt6, Point(5,6), comes_before_euclidean))
+        self.assertEqual(False, lookup_helper(bt6, Point(0,6), comes_before_euclidean))
 
     def test_value_check(self):
         self.assertEqual(True, val_check(2,2, comes_before_num))
