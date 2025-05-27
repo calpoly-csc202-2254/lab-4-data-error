@@ -125,7 +125,7 @@ class BSTTests(unittest.TestCase):
     def test_left_min(self):
         self.assertEqual(5, left_min(bt3))
         self.assertEqual(6,left_min(bt4))
-        self.assertEqual(3, left_min(bt5))
+        self.assertEqual("a", left_min(bt5))
 
     def test_delete_helper(self):
         self.assertEqual(BSNode(6,
