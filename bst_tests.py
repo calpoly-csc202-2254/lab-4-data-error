@@ -86,6 +86,15 @@ time1.append(end - start)
 print(time1)
 
 
+time2 = []
+start = time.perf_counter()
+for i in range(0,1000000):
+    rnd = random.random()
+    bst7.lookup(rnd)
+end = time.perf_counter()
+time2.append(end - start)
+print(time2)
+
 
 class BSTTests(unittest.TestCase):
     def test_is_empty(self):
